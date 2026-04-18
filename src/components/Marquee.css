@@ -1,0 +1,22 @@
+.marquee-track {
+  width: 100vw;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+
+.marquee-text {
+  display: inline-block;
+  white-space: nowrap;
+  will-change: transform;
+  animation: marquee-scroll 32s linear infinite;
+}
+
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}

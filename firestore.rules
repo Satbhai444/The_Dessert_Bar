@@ -1,0 +1,36 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function isAdmin() {
+      return isSignedIn() && exists(/databases/$(database)/documents/admins/$(request.auth.token.phone_number));
+    }
+    
+    function isOwner(phone) {
+      return isSignedIn() && (request.auth.token.phone_number == phone);
+    }
+
+    // User profiles
+    match /users/{phone} {
+      allow read: if isSignedIn() && (isOwner(phone) || isAdmin());
+      allow write: if isAdmin();
+      allow create: if isSignedIn() && isOwner(phone); // Allow auto-registration
+    }
+
+    // Admin list
+    match /admins/{adminId} {
+      allow read: if isSignedIn();
+      allow write: if false; // Only manageable via Firebase Console or special script
+    }
+
+    // Settings (Rewards, Menu)
+    match /settings/{settingId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+  }
+}
