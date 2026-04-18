@@ -4,14 +4,14 @@ import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
-// Your web app's Firebase configuration
+// Your web app's Firebase configuration (now using environment variables)
 const firebaseConfig = {
-  apiKey: "AIzaSyDkJkfq3dQWKlwASzoAXipz9HtEWo4fDgY",
-  authDomain: "the-dessert-bar.firebaseapp.com",
-  projectId: "the-dessert-bar",
-  storageBucket: "the-dessert-bar.appspot.com",
-  messagingSenderId: "1040358851894",
-  appId: "1:1040358851894:web:8157567c02dc641e20df97"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
 // Initialize Firebase
